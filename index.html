@@ -1,152 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Jot & Tittle Titles — E.M. Riftwood</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jot & Tittle Titles — E.M. Riftwood</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --panel: #070707;
+      --line: #1c1c1c;
+      --soft-line: #2b2b2b;
+      --text: #e6e0dc;
+      --muted: #9f9792;
+      --faint: #6f6864;
+      --accent: #cfc6bf;
+    }
 
-<style>
-body{
-background:#000;
-color:#d6d6d6;
-font-family:Georgia,serif;
-margin:0;
-padding:0;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-header{
-padding:60px 20px;
-text-align:center;
-border-bottom:1px solid #222;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-h1{
-font-size:48px;
-margin:10px 0;
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.45;
+    }
 
-.tagline{
-color:#888;
-letter-spacing:2px;
-font-size:14px;
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-.quote{
-font-style:italic;
-margin:20px auto;
-max-width:600px;
-color:#999;
-}
+    .wrap {
+      width: min(1080px, calc(100% - 48px));
+      margin: 0 auto;
+    }
 
-.section{
-padding:80px 20px;
-max-width:900px;
-margin:auto;
-}
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
 
-.book{
-margin-bottom:60px;
-border-left:2px solid #333;
-padding-left:20px;
-}
+    .topbar-inner {
+      width: min(1080px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 16px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
 
-.book h3{
-margin-bottom:5px;
-}
+    .brand-mini {
+      font-size: 0.95rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
 
-.status{
-color:#777;
-font-size:13px;
-margin-bottom:10px;
-}
+    .nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--faint);
+      font-size: 0.95rem;
+    }
 
-footer{
-text-align:center;
-padding:40px;
-border-top:1px solid #222;
-color:#666;
-}
-</style>
+    .nav a:hover {
+      color: var(--text);
+    }
+
+    header {
+      padding: 88px 0 72px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.045), transparent 34%),
+        linear-gradient(to bottom, #030303, #000000);
+      text-align: center;
+    }
+
+    .mark {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 6vw, 5.25rem);
+      line-height: 0.98;
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .subline {
+      margin-top: 10px;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      font-size: 0.9rem;
+      text-transform: lowercase;
+    }
+
+    .process-quote {
+      max-width: 760px;
+      margin: 26px auto 0;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 1.3rem;
+    }
+
+    .site-title {
+      margin-top: 30px;
+      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+    }
+
+    .tagline-main {
+      max-width: 760px;
+      margin: 14px auto 0;
+      color: var(--accent);
+      font-size: 1.3rem;
+    }
+
+    .hero-buttons {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      border: 1px solid var(--soft-line);
+      padding: 12px 18px;
+      border-radius: 999px;
+      color: var(--text);
+      background: #0b0b0b;
+    }
+
+    .button:hover {
+      border-color: var(--muted);
+      background: #101010;
+    }
+
+    section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin: 0 0 14px;
+    }
+
+    .eyebrow {
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    .lede {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 34px;
+    }
+
+    .about-grid,
+    .archive-grid,
+    .newsletter-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.015);
+    }
+
+    .panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .symbol-line {
+      font-size: 1.2rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      margin-top: 8px;
+    }
+
+    .books {
+      display: grid;
+      gap: 26px;
+      margin-top: 28px;
+    }
+
+    .book {
+      border: 1px solid var(--line);
+      background: linear-gradient(to bottom, #070707, #030303);
+      border-radius: 28px;
+      padding: 28px 28px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .book::before {
+      content: "";
+      position: absolute;
+      left: 16px;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--soft-line), transparent);
+    }
+
+    .book-inner {
+      padding-left: 18px;
+    }
+
+    .status {
+      color: var(--faint);
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+    }
+
+    .book h3 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+    }
+
+    .book-quote {
+      color: var(--accent);
+      font-style: italic;
+      font-size: 1.18rem;
+      margin: 12px 0 16px;
+    }
+
+    .book p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .small-list {
+      margin: 18px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .small-list li {
+      margin-bottom: 10px;
+    }
+
+    .newsletter-box {
+      border: 1px solid var(--soft-line);
+      border-radius: 24px;
+      padding: 22px;
+      background: #080808;
+    }
+
+    .newsletter-note {
+      color: var(--faint);
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+
+    footer {
+      padding: 34px 0 48px;
+      color: var(--faint);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 800px) {
+      .topbar-inner,
+      .about-grid,
+      .archive-grid,
+      .newsletter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        display: block;
+      }
+
+      .brand-mini {
+        margin-bottom: 10px;
+      }
+
+      header {
+        padding-top: 72px;
+      }
+
+      .process-quote,
+      .tagline-main {
+        font-size: 1.1rem;
+      }
+
+      .book h3 {
+        font-size: 1.65rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-mini">✂︎ E.M. Riftwood</div>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#books">Books</a>
+        <a href="#archive">Archive</a>
+        <a href="#newsletter">Newsletter</a>
+      </nav>
+    </div>
+  </div>
 
-<header>
+  <header>
+    <div class="wrap">
+      <div class="mark">✂︎</div>
+      <h1>E.M. Riftwood</h1>
+      <div class="subline">birthday scissors • drowning orphans • psych wards</div>
 
-<div>✂︎</div>
+      <div class="process-quote">
+        “I love drafting. I love tearing it to pieces and hating it and putting it back together so I can love it properly.”
+      </div>
 
-<h1>E.M. Riftwood</h1>
+      <div class="site-title">Jot &amp; Tittle Titles</div>
+      <div class="tagline-main">A literary home for stories you've never heard before.</div>
 
-<div class="tagline">
-birthday scissors • drowning orphans • psych wards
-</div>
+      <div class="hero-buttons">
+        <a class="button" href="#books">Enter the hallway</a>
+        <a class="button" href="#newsletter">Join the newsletter</a>
+      </div>
+    </div>
+  </header>
 
-<p class="quote">
-“I love drafting. I love tearing it to pieces and hating it and putting it back together so I can love it properly.”
-</p>
+  <section id="about">
+    <div class="wrap">
+      <div class="eyebrow">About the Author</div>
+      <div class="about-grid">
+        <div>
+          <h2>The mind behind the stories</h2>
+        </div>
+        <div class="panel">
+          <p>
+            E.M. Riftwood was writing before the pens fit in her hand. She is from a town smaller than a snowglobe and spends her time exploring dark fantasy that twists the familiar world inside out while remaining strangely relevant to it.
+          </p>
+          <p>
+            Interested in visual art and music, Riftwood writes stories that are original, daring, and unsettling. Not every character earns a happy ending.
+          </p>
+          <div class="symbol-line">✂︎ • 🪡 • 🧵</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<h2>Jot & Tittle Titles</h2>
+  <section id="books">
+    <div class="wrap">
+      <div class="eyebrow">Books and Projects</div>
+      <h2>Doors in the Hallway</h2>
+      <div class="lede">
+        Finished manuscripts, early experiments, and stories still being stitched together.
+      </div>
 
-<p>
-A literary home for stories you've never heard before.
-</p>
+      <div class="books">
+        <article class="book">
+          <div class="book-inner">
+            <div class="status">Completed early work</div>
+            <h3>Puffbutter's Secrets</h3>
+            <div class="book-quote">
+              “I know thee not, O Death. I know only that single veil—and yet, black and shrouding you from view, it cannot convince me that you do not live on.”
+            </div>
+            <p>
+              While a magical bakery runs in the middle of the night, a girl with a darker past grapples with her inheritance and discovers the deeper secrets behind not only it, but life itself.
+            </p>
+          </div>
+        </article>
 
-</header>
+        <article class="book">
+          <div class="book-inner">
+            <div class="status">Completed manuscript</div>
+            <h3>The Wonderlocs</h3>
+            <div class="book-quote">
+              “If I were you, I would sooner spend my vacation on the tracks than on the train.”
+            </div>
+            <p>
+              When a birthday wish takes away her family, Geralynne sets out to redeem them at any cost, even as she is haunted by ghosts—both figurative and literal—and must weigh every life in her crooked balance.
+            </p>
+          </div>
+        </article>
 
-<div class="section">
+        <article class="book">
+          <div class="book-inner">
+            <div class="status">In progress</div>
+            <h3>Rules of Thumb</h3>
+            <div class="book-quote">
+              “My grim reaper works best in the dark.”
+            </div>
+            <p>
+              Katrina had no talents, no gifts, and little beauty, but when a doctor sews a new thumb onto her hand she embraces celebrity life and sinks into a world that risks everything, even while running from the doctor who changed her life. And it isn't just the man who wants to kill her—the thumb does too.
+            </p>
+          </div>
+        </article>
 
-<h2>Doors in the Hallway</h2>
+        <article class="book">
+          <div class="book-inner">
+            <div class="status">In progress</div>
+            <h3>His Wandering Eye</h3>
+            <div class="book-quote">
+              “Who can hate a man for his unquenchable nature? Then again, who will love one without a mask?”
+            </div>
+            <p>
+              Walden was blinded by a mysterious light, but is plunged into a much deeper darkness when he learns he can see through the eyes of the girl who loves him—far enough through, in fact, that he spies the girl he falls in love with.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-<div class="book">
-<h3>Puffbutter's Secrets</h3>
-<div class="status">Completed early work</div>
-<p><em>
-“I know thee not, O Death. I know only that single veil—and yet, black and shrouding you from view, it cannot convince me that you do not live on.”
-</em></p>
-<p>
-While a magical bakery runs in the middle of the night, a girl with a darker past grapples with her inheritance and discovers the deeper secrets behind not only it, but life itself.
-</p>
-</div>
+  <section id="archive">
+    <div class="wrap">
+      <div class="eyebrow">The Riftwood Archive</div>
+      <div class="archive-grid">
+        <div>
+          <h2>A house for unfinished corridors</h2>
+          <div class="lede">
+            This platform exists as a dark hallway of stories: some complete, some still opening, all part of the same strange archive.
+          </div>
+        </div>
+        <div class="panel">
+          <p><strong>What lives here:</strong></p>
+          <ul class="small-list">
+            <li>Finished manuscripts and early work</li>
+            <li>Works in progress still being shaped</li>
+            <li>Quotes, fragments, and future book pages</li>
+            <li>A growing author platform before publication</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="book">
-<h3>The Wonderlocs</h3>
-<div class="status">Completed manuscript</div>
-<p><em>
-“If I were you, I would sooner spend my vacation on the tracks than on the train.”
-</em></p>
-<p>
-When a birthday wish takes away her family, Geralynne sets out to redeem them at any cost, even as she is haunted by ghosts and must weigh every life in her crooked balance.
-</p>
-</div>
+  <section id="newsletter">
+    <div class="wrap">
+      <div class="eyebrow">Newsletter</div>
+      <div class="newsletter-grid">
+        <div>
+          <h2>Follow the stories</h2>
+          <div class="lede">
+            Join the Riftwood newsletter for updates, excerpts, and glimpses into works in progress.
+          </div>
+        </div>
+        <div class="newsletter-box">
+          <p>
+            Newsletter signups will live here soon.
+          </p>
+          <p class="newsletter-note">
+            For now, this section acts as a placeholder until you choose the email platform you want to use.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="book">
-<h3>Rules of Thumb</h3>
-<div class="status">In progress</div>
-<p><em>
-“My grim reaper works best in the dark.”
-</em></p>
-<p>
-Katrina had no talents, no gifts, and little beauty, but when a doctor sews a new thumb onto her hand she embraces celebrity life while running from the man who changed her life.
-</p>
-</div>
-
-<div class="book">
-<h3>His Wandering Eye</h3>
-<div class="status">In progress</div>
-<p><em>
-“Who can hate a man for his unquenchable nature? Then again, who will love one without a mask?”
-</em></p>
-<p>
-Walden was blinded by a mysterious light, but is plunged into a deeper darkness when he discovers he can see through the eyes of the girl who loves him.
-</p>
-</div>
-
-</div>
-
-<footer>
-
-Jot & Tittle Titles — The Riftwood Archive
-
-</footer>
-
+  <footer>
+    Jot &amp; Tittle Titles — The Riftwood Archive
+  </footer>
 </body>
 </html>
