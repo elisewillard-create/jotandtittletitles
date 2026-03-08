@@ -94,10 +94,11 @@ header::before {
   position: absolute;
   inset: -25% 0 0 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.13), transparent 36%),
-    radial-gradient(ellipse at 50% 10%, rgba(170,185,210,0.09), transparent 54%);
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.15), transparent 34%),
+    radial-gradient(ellipse at 50% 12%, rgba(155,175,205,0.12), transparent 56%);
   pointer-events: none;
-  transform: translateY(calc(var(--scroll, 0) * 0.22px));
+  transform: translateY(var(--scroll-offset, 0px));
+  transition: transform 0.08s linear;
 }
 
     header .wrap {
@@ -111,16 +112,17 @@ header::before {
       margin-bottom: 10px;
     }
 
-   h1 {
+ h1 {
   font-size: clamp(3rem, 6vw, 5.25rem);
   line-height: 0.98;
   margin: 0;
   letter-spacing: -0.03em;
-  color: #e7dfd8;
-  -webkit-text-stroke: 1px rgba(160, 174, 196, 0.28);
+  color: #ece4dc;
+  -webkit-text-stroke: 1.2px rgba(145, 165, 198, 0.42);
   text-shadow:
-    0 0 1px rgba(160, 174, 196, 0.18),
-    0 0 18px rgba(255,255,255,0.03);
+    0 0 1px rgba(145, 165, 198, 0.35),
+    0 0 14px rgba(145, 165, 198, 0.10),
+    0 0 28px rgba(255,255,255,0.03);
 }
 
     .subline {
@@ -140,9 +142,14 @@ header::before {
     }
 
     .site-title {
-      margin-top: 30px;
-      font-size: clamp(1.7rem, 3.2vw, 2.6rem);
-    }
+  margin-top: 30px;
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  color: #e8dfd7;
+  -webkit-text-stroke: 0.9px rgba(145, 165, 198, 0.34);
+  text-shadow:
+    0 0 1px rgba(145, 165, 198, 0.25),
+    0 0 10px rgba(145, 165, 198, 0.06);
+}
 
     .tagline-main {
       max-width: 760px;
@@ -197,12 +204,14 @@ header::before {
       border-bottom: 1px solid var(--line);
     }
 
-    h2 {
+   h2 {
   font-size: clamp(2rem, 4vw, 3rem);
   margin: 0 0 14px;
-  color: #e3dbd4;
-  -webkit-text-stroke: 0.6px rgba(150, 165, 190, 0.22);
-  text-shadow: 0 0 1px rgba(150, 165, 190, 0.12);
+  color: #e8dfd7;
+  -webkit-text-stroke: 0.9px rgba(145, 165, 198, 0.34);
+  text-shadow:
+    0 0 1px rgba(145, 165, 198, 0.25),
+    0 0 10px rgba(145, 165, 198, 0.06);
 }
 
     .eyebrow {
@@ -283,12 +292,14 @@ header::before {
       margin-bottom: 10px;
     }
 
-   .book h3 {
+  .book h3 {
   margin: 0 0 10px;
   font-size: 2rem;
-  color: #e3dbd4;
-  -webkit-text-stroke: 0.6px rgba(150, 165, 190, 0.22);
-  text-shadow: 0 0 1px rgba(150, 165, 190, 0.12);
+  color: #e8dfd7;
+  -webkit-text-stroke: 0.9px rgba(145, 165, 198, 0.34);
+  text-shadow:
+    0 0 1px rgba(145, 165, 198, 0.25),
+    0 0 10px rgba(145, 165, 198, 0.06);
 }
 
     .book-quote {
@@ -531,10 +542,14 @@ header::before {
     Jot &amp; Tittle Titles — The Riftwood Archive
   </footer>
 
-  <script>
-window.addEventListener("scroll", function() {
-  document.documentElement.style.setProperty("--scroll", window.scrollY);
-});
+<script>
+function updateSpotlight() {
+  const offset = window.scrollY * 0.22;
+  document.documentElement.style.setProperty("--scroll-offset", offset + "px");
+}
+
+window.addEventListener("scroll", updateSpotlight);
+updateSpotlight();
 </script>
   
 </body>
