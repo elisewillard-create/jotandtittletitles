@@ -92,12 +92,17 @@
 header::before {
   content: "";
   position: absolute;
-  inset: -20% 0 0 0;
+  inset: -25% 0 0 0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.09), transparent 38%),
-    radial-gradient(ellipse at 50% 8%, rgba(180,190,210,0.06), transparent 52%);
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.13), transparent 36%),
+    radial-gradient(ellipse at 50% 10%, rgba(170,185,210,0.09), transparent 54%);
   pointer-events: none;
-  transform: translateY(calc(var(--scroll, 0) * 0.12px));
+  transform: translateY(calc(var(--scroll, 0) * 0.22px));
+}
+
+    header .wrap {
+  position: relative;
+  z-index: 1;
 }
 
     .mark {
@@ -155,17 +160,37 @@ header::before {
     }
 
     .button {
-      border: 1px solid var(--soft-line);
-      padding: 12px 18px;
-      border-radius: 999px;
-      color: var(--text);
-      background: #0b0b0b;
-    }
+  border: 1px solid var(--soft-line);
+  padding: 12px 18px;
+  border-radius: 999px;
+  color: var(--text);
+  background: #0b0b0b;
+}
 
-    .button:hover {
-      border-color: var(--muted);
-      background: #101010;
-    }
+.button-dark {
+  background: #0b0b0b;
+  color: var(--text);
+}
+
+.button-light {
+  background: var(--accent);
+  color: #0b0b0b;
+  border-color: var(--accent);
+}
+
+.button:hover {
+  border-color: var(--muted);
+}
+
+.button-dark:hover {
+  background: #101010;
+}
+
+.button-light:hover {
+  background: #d8cfc8;
+  color: #0b0b0b;
+  border-color: #d8cfc8;
+}
 
     section {
       padding: 72px 0;
@@ -366,10 +391,10 @@ header::before {
       <div class="site-title">Jot &amp; Tittle Titles</div>
       <div class="tagline-main">A literary home for stories you've never heard before.</div>
 
-      <div class="hero-buttons">
-        <a class="button" href="#books">Enter the hallway</a>
-        <a class="button" href="#newsletter">Join the newsletter</a>
-      </div>
+     <div class="hero-buttons">
+  <a class="button button-dark" href="#books">Enter the hallway</a>
+  <a class="button button-light" href="#newsletter">Join the newsletter</a>
+</div>
     </div>
   </header>
 
